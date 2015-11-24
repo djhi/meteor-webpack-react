@@ -1,3 +1,4 @@
+/* eslint no-var:0 */
 var path = require('path');
 var webpack = require('webpack');
 
@@ -26,12 +27,12 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        loader: 'style-loader!css-loader',
       },
     ],
   },
   plugins: [
-    new webpack.PrefetchPlugin("react"),
-    new webpack.PrefetchPlugin("react/lib/ReactComponentBrowserEnvironment")
-  ]
+    new webpack.PrefetchPlugin('react'),
+    new webpack.PrefetchPlugin('react/lib/ReactComponentBrowserEnvironment'),
+  ],
 };

@@ -10,11 +10,6 @@ if (!Posts.find().fetch().length) {
   createUsers();
 }
 
-// smoke test that these are present
-Npm.require;
-Assets;
-require('fs').readFile.call;
-
 console.error(new Error('source map test').stack);
 
 console.log('\n\nRunning on server only');

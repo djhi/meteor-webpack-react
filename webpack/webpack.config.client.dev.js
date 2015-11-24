@@ -1,11 +1,12 @@
+/* eslint no-var:0 */
 var webpack = require('webpack');
-var config = require('./webpack.config.client');
+var baseconfig = require('./webpack.config.client');
 var _ = require('lodash');
 var devProps = require('./devProps');
 var RunInMeteorPlugin = require('webpack-meteor-tools/lib/RunInMeteorPlugin');
-var dirs = require('../dirs');
+var dirs = require('../bin/dirs');
 
-var config = module.exports = _.assign(_.clone(config), {
+var config = module.exports = _.assign(_.clone(baseconfig), {
   devtool: 'eval',
   entry: [
     'webpack-dev-server/client?' + devProps.baseUrl,
@@ -19,8 +20,8 @@ var config = module.exports = _.assign(_.clone(config), {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new RunInMeteorPlugin({
-      mode: 'development', 
-      target: 'client', 
+      mode: 'development',
+      target: 'client',
       meteor: dirs.meteor,
       key: 'client',
     }),
@@ -39,5 +40,5 @@ var config = module.exports = _.assign(_.clone(config), {
       // },
       // '*': 'http://localhost:3000',
     // }
-  }
+  },
 });

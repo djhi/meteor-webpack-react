@@ -53,22 +53,22 @@ const Post = React.createClass({
 describe('Sample post component', () => {
   it('renders default post name without props', () => {
     let comp = renderComponent(Post, {});
-    expect(comp.props.title).toEqual('Default Post Name');
+    expect(comp.props.title).to.equal('Default Post Name');
   });
 
   it('renders correct post name with a name prop', () => {
     let comp = renderComponent(Post, {title: "Webpack is awesome!"});
-    expect(comp.props.title).toEqual("Webpack is awesome!");
+    expect(comp.props.title).to.equal("Webpack is awesome!");
   });
 
   it("should have a default state of visible", () => {
     let comp = renderComponent(Post, {});
-    expect(comp.state.isVisible).toEqual(true);
+    expect(comp.state.isVisible).to.equal(true);
   });
 
   it("should hide when hide button is clicked", () => {
     let comp = renderComponent(Post, {});
     comp.handleHide();
-    expect(comp.state.isVisible).toEqual(false);
+    expect(comp.state.isVisible).to.equal(false);
   });
 });

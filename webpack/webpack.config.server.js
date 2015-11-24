@@ -1,5 +1,5 @@
+/* eslint no-var:0 */
 var path = require('path');
-var webpack = require('webpack');
 
 module.exports = {
   context: __dirname,

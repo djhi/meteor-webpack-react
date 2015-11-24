@@ -10,6 +10,7 @@ var projectName = require('./projectName');
 if (!projectName) {
   echo('Please enter your project name in projectName.js');
 }
+echo('Preparing deployment of ' + projectName);
 
 var dirs = require('./dirs');
 
@@ -26,11 +27,11 @@ function deploy() {
 
   case 'meteor.com':
     cd(dirs.meteor);
-    exec('meteor deploy ' + projectName + '.meteor.com', {async: true});
+    exec('meteor deploy ' + projectName + '.meteor.com --settings ../settings/' + env.NODE_ENV + '/settings.json', {async: true});
     break;
 
   case 'modulus':
-    env.METEOR_SETTINGS = cat('settings/prod.json');
+    env.METEOR_SETTINGS = cat('settings/' + env.NODE_ENV + '/settings.json');
     cd(dirs.meteor);
     exec('modulus deploy --project-name ' + projectName, {async: true});
     break;
@@ -42,7 +43,7 @@ function deploy() {
      * then mup init inside settings/prod/ so that mup uses the new settings.json
      * this will require a settings path change in ./dev script
      */
-    cd('settings/prod');
+    cd('settings/' + env.NODE_ENV);
     exec('mup deploy', {async: true});
     break;
 
@@ -50,7 +51,7 @@ function deploy() {
     rm('-rf', 'dist/bundle');
     mkdir('-p', 'dist/bundle');
     cd(dirs.meteor);
-    exec("demeteorizer -o ../dist/bundle --json '" + cat('../settings/prod.json') + "'", {async: true});
+    exec("demeteorizer -o ../dist/bundle --json '" + cat('../settings/' + env.NODE_ENV + '/settings.json') + "'", {async: true});
     // run your own command to deploy to your server
     break;
 

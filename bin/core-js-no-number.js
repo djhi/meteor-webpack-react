@@ -1,0 +1,1 @@
+/home/gildas/projects/meteor-webpack-react/bin/core-js-no-number-1.2.6.js

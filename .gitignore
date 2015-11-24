@@ -1,4 +1,7 @@
+coverage
 dist
+mup.json
 node_modules
 npm-debug.log
+settings.json
 /webpack/lib

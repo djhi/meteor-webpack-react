@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var config = require('./webpack.config.server');
 var _ = require('lodash');
-var dirs = require('../dirs');
+var dirs = require('../bin/dirs');
 var RunInMeteorPlugin = require('webpack-meteor-tools/lib/RunInMeteorPlugin');
 
 var config = module.exports = _.assign(_.clone(config), {

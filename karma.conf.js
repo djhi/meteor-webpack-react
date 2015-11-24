@@ -1,37 +1,37 @@
-var path = require('path');
-var webpackConfig = require('./webpack/webpack.config.client.js');
+/* eslint no-var:0 */
+var webpackConfig = require('./webpack/webpack.config.test.js');
 
-module.exports = function (config) {
+module.exports = function karmaConf(config) {
   config.set({
-    //singleRun: true,
-    reporters: [ 'dots' ],
-    browsers: [ 'Chrome' ],
-    files: [ './test/karma.bundle.js' ],
-    frameworks: [ 'jasmine' ],
+    // singleRun: true,
+    reporters: ['mocha', 'coverage'],
+    browsers: ['Chrome'],
+    files: ['./test/karma.bundle.js'],
+    frameworks: ['mocha', 'sinon-chai'],
     plugins: [
+      'karma-coverage',
       'karma-chrome-launcher',
-      //'karma-firefox-launcher',
-      'karma-jasmine',
-      //'karma-mocha',
+      'karma-mocha',
+      'karma-mocha-reporter',
+      'karma-sinon-chai',
       'karma-sourcemap-loader',
       'karma-webpack',
     ],
     // run the bundle through the webpack and sourcemap plugins
     preprocessors: {
-      './test/karma.bundle.js': [ 'webpack', 'sourcemap' ]
+      './test/**/*.js': ['webpack', 'sourcemap'],
+      './app/**/*.js': ['webpack', 'sourcemap'],
     },
     // use our own webpack config to mirror test setup
-    webpack: {
-      entry: [
-        './lib/core-js-no-number',
-        'regenerator/runtime',
-      ],
-      devtool: 'eval-source-map',
-      resolve: webpackConfig.resolve,
-      module: { loaders: webpackConfig.module.loaders },
-    },
+    webpack: webpackConfig,
     webpackMiddleware: {
       noInfo: true,
-    }
+    },
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'coverage/',
+      subdir: '.',
+      file: 'lcov.info',
+    },
   });
 };

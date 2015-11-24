@@ -1,4 +1,10 @@
+require('./mocks');
+
 // require all foo_spec.js, bar_spec.jsx files in the app directory
-var context = require.context('../app', true, /.+_spec\.jsx?$/);
-context.keys().forEach(context);
-module.exports = context;
+const testContext = require.context('.', true, /.+\.js$/);
+testContext.keys().forEach(testContext);
+
+const appContext = require.context('../app', true, /^(?!main_client|main_server|fixtures|method_example).*\.js$/);
+appContext.keys().forEach(appContext);
+
+module.exports = {testContext, appContext};
