@@ -47,12 +47,21 @@ to rename it to `main.js`* so that Meteor loads it after everything else.
 
 There have been dependency issues with old versions of Node and NPM.  Please try at least Node v0.10.36 and npm v1.4.28 before repording any issues about missing dependencies.
 
+## Setup
+
+```
+> make install
+```
+
+This will install npm dependencies and setup your configuration files (settings and mup) inside './settings'.
+
+Only the `*-dist.json` will ever be commited in git.
+
 ## Running (dev mode)
 
 **Note:** make sure you are forwarding port 9090 (as well as the Meteor port) if you want to test on other devices via LAN.
 
 ```
-> make install
 > make run-dev
 ```
 Make sure to wait for Meteor to say it's listening, for the client `webpack-dev-server` and server `webpack --watch` to print out module/bundle info.  The site won't work until all are ready.
@@ -61,7 +70,6 @@ Make sure to wait for Meteor to say it's listening, for the client `webpack-dev-
 
 ```
 > npm install -g node-inspector
-> make install
 > make run-debug
 ```
 Then visit `http://127.0.0.1:8080/debug?port=5858` in your browser.
@@ -70,7 +78,6 @@ Then visit `http://127.0.0.1:8080/debug?port=5858` in your browser.
 This runs the app as if it were in production, but it's still watching your files for changes.  You can Ctrl-C after it's finished starting up and use `./met deploy`, though.
 
 ```
-> make install
 > make run-prod
 ```
 Make sure to wait for Meteor to say it's listening, and for the client and server `webpack --watch` processes to print out module/bundle info.  The site won't work until all are ready.
