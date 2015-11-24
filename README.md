@@ -29,7 +29,7 @@ There is a port of the Meteor simple-todos tutorial to this stack on the `simple
 
 ## How it works
 
-The `dev.js`, `prod.js`, and `deploy.js` scripts will run Webpack, and symbolically link the generated bundles
+The `dev.js`, `prod.js`, and `deploy.js` scripts (in `./bin`) will run Webpack, and symbolically link the generated bundles
 into the `meteor_core` directory.
 
 In prod mode, `meteor_core` gets the webpack client and server bundles via the soft links `meteor_core/client/client.bundle.js` and `meteor_core/server/server.bundle.js`.  Two instances of `webpack --watch` are running, one to make the client bundle and one to make the server bundle.
@@ -52,8 +52,8 @@ There have been dependency issues with old versions of Node and NPM.  Please try
 **Note:** make sure you are forwarding port 9090 (as well as the Meteor port) if you want to test on other devices via LAN.
 
 ```
-> npm install
-> node dev.js
+> make install
+> make run-dev
 ```
 Make sure to wait for Meteor to say it's listening, for the client `webpack-dev-server` and server `webpack --watch` to print out module/bundle info.  The site won't work until all are ready.
 
@@ -61,8 +61,8 @@ Make sure to wait for Meteor to say it's listening, for the client `webpack-dev-
 
 ```
 > npm install -g node-inspector
-> npm install
-> node debug.js
+> make install
+> make run-debug
 ```
 Then visit `http://127.0.0.1:8080/debug?port=5858` in your browser.
 
@@ -70,42 +70,41 @@ Then visit `http://127.0.0.1:8080/debug?port=5858` in your browser.
 This runs the app as if it were in production, but it's still watching your files for changes.  You can Ctrl-C after it's finished starting up and use `./met deploy`, though.
 
 ```
-> npm install
-> node prod.js
+> make install
+> make run-prod
 ```
 Make sure to wait for Meteor to say it's listening, and for the client and server `webpack --watch` processes to print out module/bundle info.  The site won't work until all are ready.
 
 
 ## Deployment
 
-You can set the project name in `projectName.js`.  It defaults to
-the project folder name.
+Make sure to edit your `package.json` replacing the `name` property as this will be used for the application name when deploying to meteor and modulus.
 
 There is a deployment script that supports several common options:
 ```
-node deploy.js meteor.com
+make deploy-meteor
 ```
 The usual basic meteor.com deploy
 
 ```
-node deploy.js modulus
+node deploy-modulus
 ```
-Uses modulus (make sure to go into the deploy script and replace `your_app_proj_name` with a real value
+Uses modulus
 
 ```
-node deploy.js mup
+node deploy-mup
 ```
-See `deploy.js` for some additional hints
+Uses [MUP](https://github.com/arunoda/meteor-up) for deployment. It's configuration can be found in `./settings/[NODE_ENV]`
 
 ```
-node deploy.js demeteorizer
+node deploy-demeteorizer
 ```
-Builds with demeteorizer
+Builds with [demeteorizer](https://github.com/onmodulus/demeteorizer)
 
 
 ## Meteor Settings
 
-Put your settings in `settings/devel.json` & `settings/prod.json` and they will automatically load when running in development, production and build modes.
+Put your settings in `settings/[NODE_ENV]/settings.json` and they will automatically load when running in development, production and build modes.
 
 
 ## Running Meteor Commands
@@ -116,6 +115,10 @@ As a convenience you can run `./met` in the root directory to run the `meteor` c
 ./met  --version
 ./met search simple-schema
 ```
+
+## Tests
+
+Run `make test` to run the tests. Code coverage reports will be available in `./coverage/lcov-report/index.html`. Open it to see your coverage with es6 support.
 
 ## Acknowledgements
 
