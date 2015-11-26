@@ -1,16 +1,16 @@
 var webpack = require('webpack');
-var config = require('./webpack.config.server');
+var baseconfig = require('./webpack.config.server');
 var _ = require('lodash');
 var dirs = require('../bin/dirs');
 var RunInMeteorPlugin = require('webpack-meteor-tools/lib/RunInMeteorPlugin');
 
-var config = module.exports = _.assign(_.clone(config), {
+module.exports = _.assign(_.clone(baseconfig), {
   devtool: 'source-map',
-  output: _.assign(_.clone(config.output), {
+  output: _.assign(_.clone(baseconfig.output), {
     pathinfo: true,
   }),
   watch: true,
-  plugins: (config.plugins || []).concat([
+  plugins: (baseconfig.plugins || []).concat([
     new RunInMeteorPlugin({
       meteor: dirs.meteor,
       key: 'server',

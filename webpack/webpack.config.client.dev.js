@@ -6,17 +6,17 @@ var devProps = require('./devProps');
 var RunInMeteorPlugin = require('webpack-meteor-tools/lib/RunInMeteorPlugin');
 var dirs = require('../bin/dirs');
 
-var config = module.exports = _.assign(_.clone(baseconfig), {
+module.exports = _.assign(_.clone(baseconfig), {
   devtool: 'eval',
   entry: [
     'webpack-dev-server/client?' + devProps.baseUrl,
     'webpack/hot/only-dev-server',
-  ].concat(config.entry),
-  output: _.assign(_.clone(config.output), {
+  ].concat(baseconfig.entry),
+  output: _.assign(_.clone(baseconfig.output), {
     publicPath: devProps.baseUrl + '/assets/',
     pathinfo: true,
   }),
-  plugins: (config.plugins || []).concat([
+  plugins: (baseconfig.plugins || []).concat([
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new RunInMeteorPlugin({

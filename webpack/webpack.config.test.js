@@ -1,17 +1,17 @@
 /* eslint no-var:0 */
-var config = require('./webpack.config.client');
+var baseconfig = require('./webpack.config.client');
 var _ = require('lodash');
 var devProps = require('./devProps');
 var path = require('path');
 
-module.exports = _.assign(_.clone(config), {
+module.exports = _.assign(_.clone(baseconfig), {
   devtool: 'inline-source-map',
   entry: [
     './lib/core-js-no-number',
     'regenerator/runtime',
   ],
   module: {
-    loaders: (config.module.loaders || []).concat([{
+    loaders: (baseconfig.module.loaders || []).concat([{
       test: /\.jsx?$/,
       loader: 'babel',
       exclude: /node_modules|webpack\/lib/,
@@ -24,7 +24,7 @@ module.exports = _.assign(_.clone(config), {
       loader: 'isparta-instrumenter-loader',
     }],
   },
-  plugins: config.plugins,
+  plugins: baseconfig.plugins,
   devServer: {
     publicPath: devProps.baseUrl + '/assets/',
     host: devProps.host,

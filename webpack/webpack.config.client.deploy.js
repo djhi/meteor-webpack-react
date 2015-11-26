@@ -5,8 +5,8 @@ var _ = require('lodash');
 var dirs = require('../bin/dirs');
 var RunInMeteorPlugin = require('webpack-meteor-tools/lib/RunInMeteorPlugin');
 
-var config = module.exports = _.assign(_.clone(baseconfig), {
-  plugins: (config.plugins || []).concat([
+module.exports = _.assign(_.clone(baseconfig), {
+  plugins: (baseconfig.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
